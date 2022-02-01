@@ -1,0 +1,84 @@
+> use school
+switched to db school
+
+> db.class.insert({name: "dkpbw21a1"})
+WriteResult({ "nInserted" : 1 })
+
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+school  0.000GB
+
+> use users
+switched to db users
+
+> db.user.insert({name: "Freja", email: "freja.hyldgaard@godmail.dk", phone: "12345678"})
+WriteResult({ "nInserted" : 1 })
+
+> db.user.insert({name: "Maja", email: "maja@test.dk", phone: "23456789"})
+WriteResult({ "nInserted" : 1 })
+
+> db.user.find()
+{ "_id" : ObjectId("61f90e387d2a82fe4b6757d9"), "name" : "Freja", "email" : "freja.hyldgaard@godmail.dk", "phone" : "12345678" }
+{ "_id" : ObjectId("61f90e9c7d2a82fe4b6757da"), "name" : "Maja", "email" : "maja@test.dk", "phone" : "23456789" }
+
+> db.user.remove({ _id: ObjectId("61f90e9c7d2a82fe4b6757da")})
+WriteResult({ "nRemoved" : 1 })
+
+> db.user.find()
+{ "_id" : ObjectId("61f90e387d2a82fe4b6757d9"), "name" : "Freja", "email" : "freja.hyldgaard@godmail.dk", "phone" : "12345678" }
+
+> db.school.insert({name: "Vejle Tekniske Gymnasium"})
+WriteResult({ "nInserted" : 1 })
+
+> db.school.insert({name: "IBA Erhvervsakademi Kolding"})
+WriteResult({ "nInserted" : 1 })
+
+> db.user.find().pretty()
+{
+        "_id" : ObjectId("61f90e387d2a82fe4b6757d9"),
+        "name" : "Freja",
+        "email" : "freja.hyldgaard@godmail.dk",
+        "phone" : "12345678"
+}
+
+> db.school.find().pretty()
+{
+        "_id" : ObjectId("61f90fce7d2a82fe4b6757db"),
+        "name" : "Vejle Tekniske Gymnasium"
+}
+{
+        "_id" : ObjectId("61f9100f7d2a82fe4b6757dc"),
+        "name" : "IBA Erhvervsakademi Kolding"
+}
+
+> db.school.update({_id : ObjectId("61f90fce7d2a82fe4b6757db")}, {$set : {studentName : "Freja"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.school.find().pretty()
+{
+        "_id" : ObjectId("61f90fce7d2a82fe4b6757db"),
+        "name" : "Vejle Tekniske Gymnasium",
+        "studentName" : "Freja"
+}
+{
+        "_id" : ObjectId("61f9100f7d2a82fe4b6757dc"),
+        "name" : "IBA Erhvervsakademi Kolding"
+}
+
+> db.school.update({_id : ObjectId("61f9100f7d2a82fe4b6757dc")}, {$set : {studentName : "Freja"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.school.find().pretty()
+{
+        "_id" : ObjectId("61f90fce7d2a82fe4b6757db"),
+        "name" : "Vejle Tekniske Gymnasium",
+        "studentName" : "Freja"
+}
+{
+        "_id" : ObjectId("61f9100f7d2a82fe4b6757dc"),
+        "name" : "IBA Erhvervsakademi Kolding",
+        "studentName" : "Freja"
+}
+>
